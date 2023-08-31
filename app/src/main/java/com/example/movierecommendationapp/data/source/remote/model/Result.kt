@@ -1,7 +1,6 @@
 package com.example.movierecommendationapp.data.source.remote.model
 
 
-import com.example.movierecommendationapp.data.source.remote.model.Result
 import com.example.movierecommendationapp.domain.model.Movie
 import com.google.gson.annotations.SerializedName
 
