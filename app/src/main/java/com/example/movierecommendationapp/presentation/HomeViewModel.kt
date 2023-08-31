@@ -15,18 +15,25 @@ class HomeViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
+    private val _movieLiveData = MutableLiveData<HomeState>(HomeState(isLoading = true))
+    val movieLiveData: LiveData<HomeState>
+        get() = _movieLiveData
+
     init {
         fetchPopularMovies()
     }
 
-
-    private val _movieLiveData = MutableLiveData<List<Movie>>()
-    val movieLiveData: LiveData<List<Movie>> = _movieLiveData
-
     private fun fetchPopularMovies() {
         viewModelScope.launch {
-            val movies = repository.getPopularMovies()
-            _movieLiveData.value = movies
+            try {
+                _movieLiveData.value = HomeState(isLoading = true)
+                val movies = repository.getPopularMovies()
+                movies.let {
+                    _movieLiveData.value = HomeState(isLoading = false, movieData = it)
+                }
+            } catch (e: Exception) {
+                _movieLiveData.value = HomeState(error = e.message)
+            }
         }
     }
 

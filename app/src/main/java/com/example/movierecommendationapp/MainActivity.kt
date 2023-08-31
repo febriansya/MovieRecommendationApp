@@ -1,8 +1,10 @@
 package com.example.movierecommendationapp
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapterMovie: HomeAdapater
     private lateinit var binding: ActivityMainBinding
+    var listOfMovie: MutableList<Movie> = mutableListOf()
     private val viewModel by viewModels<HomeViewModel>()
 
 
@@ -24,17 +27,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         observeData()
+
+        adapterMovie = HomeAdapater(listOfMovie as ArrayList<Movie>)
+        binding.rvMovie.setHasFixedSize(true)
+        binding.rvMovie.layoutManager = LinearLayoutManager(applicationContext)
+        binding.rvMovie.adapter = adapterMovie
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun observeData() {
         viewModel.movieLiveData.observe(this) {
-            adapterMovie = HomeAdapater(it  as ArrayList<Movie>)
-            binding.rvMovie.setHasFixedSize(true)
-            binding.rvMovie.layoutManager = LinearLayoutManager(applicationContext)
-            binding.rvMovie.adapter = adapterMovie
+            if (it.isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+
+            val data = it.movieData
+            if (data.isNotEmpty()) {
+                listOfMovie.clear()
+                listOfMovie.addAll(data)
+                adapterMovie.notifyDataSetChanged()
+            }
         }
     }
 
