@@ -1,5 +1,7 @@
 package com.example.movierecommendationapp.domain.repository
 
-interface MovieRepository {
+import com.example.movierecommendationapp.domain.model.Movie
 
+interface MovieRepository {
+    suspend fun getPopularMovies(): List<Movie>
 }
