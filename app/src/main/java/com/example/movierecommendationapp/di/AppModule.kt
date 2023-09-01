@@ -1,15 +1,12 @@
 package com.example.movierecommendationapp.di
 
 import android.content.Context
-import androidx.room.Dao
 import com.example.movierecommendationapp.data.repository.MovieRepositoryImpl
 import com.example.movierecommendationapp.data.source.local.MovieDao
-import com.example.movierecommendationapp.data.source.local.MovieDatabase
 import com.example.movierecommendationapp.data.source.remote.MovieApiService
 import com.example.movierecommendationapp.domain.repository.MovieRepository
 import com.example.movierecommendationapp.domain.usecase.GetPopularMovieUseCase
 import com.example.movierecommendationapp.utils.Constants
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,9 +42,4 @@ object AppModule {
         return MovieRepositoryImpl(apiService, dao)
     }
 
-    @Provides
-    @Singleton
-    fun provideUseCase(repository: MovieRepository, context: Context): GetPopularMovieUseCase {
-        return GetPopularMovieUseCase(repository, context)
-    }
 }
