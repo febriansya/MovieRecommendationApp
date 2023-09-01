@@ -19,7 +19,6 @@ class GetPopularMovieUseCase @Inject constructor(
             val movie = repository.getLocalPopularMovie()
             movieData.addAll(movie)
         }
-
         return movieData
     }
 }

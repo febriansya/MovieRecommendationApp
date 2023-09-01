@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieRecommendationApp</string>
+    <string name="local_data_empty">LOCAL DATA EMPTY!!</string>
 </resources>

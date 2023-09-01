@@ -1,4 +1,4 @@
-package com.example.movierecommendationapp.presentation
+package com.example.movierecommendationapp.presentation.homescreen
 
 import com.example.movierecommendationapp.domain.model.Movie
 

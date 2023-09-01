@@ -19,8 +19,8 @@ class MovieRepositoryImpl @Inject constructor(val api: MovieApiService, val dao:
                 for (movieDto in it) {
                     val movies = movieDto.getDataMovieProperties()
                     movieData.add(movies)
-                    val saveDb = movieDto.toMovieModelOffline()
-                    dao.insertMovie(saveDb)
+//                    val saveDb = movieDto.toMovieModelOffline()
+//                    dao.insertMovie(saveDb)
                 }
             }
         }
