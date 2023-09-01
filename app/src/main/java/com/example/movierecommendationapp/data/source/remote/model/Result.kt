@@ -1,6 +1,7 @@
 package com.example.movierecommendationapp.data.source.remote.model
 
 
+import com.example.movierecommendationapp.data.source.local.model.MovieModel
 import com.example.movierecommendationapp.domain.model.Movie
 import com.google.gson.annotations.SerializedName
 
@@ -41,6 +42,17 @@ fun Result.getDataMovieProperties(): Movie {
         judul = this.originalTitle,
         tanggal = this.releaseDate
     )
+
+
 }
+
+fun Result.toMovieModelOffline(): MovieModel {
+    return MovieModel(
+        idMovie = this.id,
+        judul = this.originalTitle,
+        tanggal = this.releaseDate
+    )
+}
+
 
 

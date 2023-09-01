@@ -1,6 +1,9 @@
 package com.example.movierecommendationapp.di
 
+import androidx.room.Dao
 import com.example.movierecommendationapp.data.repository.MovieRepositoryImpl
+import com.example.movierecommendationapp.data.source.local.MovieDao
+import com.example.movierecommendationapp.data.source.local.MovieDatabase
 import com.example.movierecommendationapp.data.source.remote.MovieApiService
 import com.example.movierecommendationapp.domain.repository.MovieRepository
 import com.example.movierecommendationapp.utils.Constants
@@ -30,9 +33,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiService: MovieApiService): MovieRepository {
-        return MovieRepositoryImpl(apiService)
+    fun provideRepository(apiService: MovieApiService, dao: MovieDao): MovieRepository {
+        return MovieRepositoryImpl(apiService, dao)
     }
-
-
 }
