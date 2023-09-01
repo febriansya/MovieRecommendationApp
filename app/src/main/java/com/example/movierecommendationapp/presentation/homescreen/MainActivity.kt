@@ -51,8 +51,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.movieLiveData.observe(this) {
             if (it.isLoading) {
                 binding.progressBar.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.GONE
             } else {
                 binding.progressBar.visibility = View.GONE
+                binding.tvEmpty.visibility = View.GONE
             }
 
             val data = it.movieData
