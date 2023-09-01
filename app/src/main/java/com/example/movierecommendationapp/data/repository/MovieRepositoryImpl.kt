@@ -7,6 +7,7 @@ import com.example.movierecommendationapp.data.source.remote.model.toMovieModelO
 import com.example.movierecommendationapp.domain.model.Movie
 import com.example.movierecommendationapp.domain.repository.MovieRepository
 import javax.inject.Inject
+import kotlin.math.tan
 
 class MovieRepositoryImpl @Inject constructor(val api: MovieApiService, val dao: MovieDao) :
     MovieRepository {
@@ -25,5 +26,27 @@ class MovieRepositoryImpl @Inject constructor(val api: MovieApiService, val dao:
             }
         }
         return movieData
+    }
+
+    override suspend fun getLocalPopularMovie(): List<Movie> {
+        val movie = dao.getAllMovie()
+        val movieLocalData = mutableListOf<Movie>()
+
+        if (movie.isNotEmpty()) {
+            val mapTomovie = movie.map {
+                movieLocalData.addAll(
+                    listOf(
+                        Movie(
+                            idMovie = it.idMovie,
+                            judul = it.judul,
+                            tanggal = it.tanggal
+                        )
+                    )
+                )
+
+            }
+        }
+
+        return movieLocalData
     }
 }
